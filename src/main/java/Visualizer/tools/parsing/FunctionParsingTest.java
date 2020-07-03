@@ -1,4 +1,4 @@
-package main.java.Visualizer.tools.parsing;
+package Visualizer.tools.parsing;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

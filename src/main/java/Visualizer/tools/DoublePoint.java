@@ -1,6 +1,6 @@
-package main.java.Visualizer.tools;
+package Visualizer.tools;
 
-import main.java.Visualizer.display.Display;
+import Visualizer.display.Display;
 
 import java.awt.*;
 

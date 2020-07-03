@@ -1,6 +1,6 @@
-package main.java.Visualizer.display;
+package Visualizer.display;
 
-import main.java.Visualizer.tools.parsing.FunctionParsing;
+import Visualizer.tools.parsing.FunctionParsing;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

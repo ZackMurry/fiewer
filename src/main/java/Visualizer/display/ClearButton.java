@@ -1,4 +1,4 @@
-package main.java.Visualizer.display;
+package Visualizer.display;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

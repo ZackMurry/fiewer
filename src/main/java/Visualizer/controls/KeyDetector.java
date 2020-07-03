@@ -1,4 +1,4 @@
-package main.java.Visualizer.controls;
+package Visualizer.controls;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

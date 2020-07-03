@@ -1,6 +1,6 @@
-package main.java.Visualizer.functions;
+package Visualizer.functions;
 
-import main.java.Visualizer.tools.DoublePoint;
+import Visualizer.tools.DoublePoint;
 
 import java.awt.*;
 

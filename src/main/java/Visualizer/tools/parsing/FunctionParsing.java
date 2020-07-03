@@ -1,7 +1,7 @@
-package main.java.Visualizer.tools.parsing;
+package Visualizer.tools.parsing;
 
-import main.java.Visualizer.display.Display;
-import main.java.Visualizer.functions.*;
+import Visualizer.display.Display;
+import Visualizer.functions.*;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package main.java.Visualizer.display;
+package Visualizer.display;
 
 /**
  * like desmos if desmos was bad
@@ -7,16 +7,14 @@ package main.java.Visualizer.display;
 
 
 
-import main.java.Visualizer.controls.KeyDetector;
-import main.java.Visualizer.controls.MouseWheelDetector;
-import main.java.Visualizer.functions.Function;
-import main.java.Visualizer.tools.parsing.FunctionParsing;
+import Visualizer.controls.KeyDetector;
+import Visualizer.controls.MouseWheelDetector;
+import Visualizer.functions.Function;
+import Visualizer.tools.parsing.FunctionParsing;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
@@ -27,7 +25,6 @@ public class Display extends Canvas implements Runnable {
 
     private Thread thread;
     private static final String title = "Fiewer";
-    private static Image icon;
 
     private JFrame frame;
 
@@ -62,6 +59,13 @@ public class Display extends Canvas implements Runnable {
 
     public Display() {
         this.frame = new JFrame();
+
+        try{
+            Image icon = new ImageIcon(getClass().getClassLoader().getResource("images/fiewericonsmall.png")).getImage();
+            frame.setIconImage(icon);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Dimension size = new Dimension(WIDTH, HEIGHT);
         this.setPreferredSize(size);
@@ -128,12 +132,7 @@ public class Display extends Canvas implements Runnable {
 
         display.frame.setTitle(title);
 
-        try{
-            icon = ImageIO.read(new File("src/main/resources/images/fiewericonsmall.png"));
-            display.frame.setIconImage(icon);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         display.frame.setLayout(new GridBagLayout());
 

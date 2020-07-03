@@ -1,6 +1,6 @@
-package main.java.Visualizer.controls;
+package Visualizer.controls;
 
-import main.java.Visualizer.display.Display;
+import Visualizer.display.Display;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;

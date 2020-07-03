@@ -1,7 +1,7 @@
-package main.java.Visualizer.functions;
+package Visualizer.functions;
 
-import main.java.Visualizer.display.Display;
-import main.java.Visualizer.tools.DoublePoint;
+import Visualizer.display.Display;
+import Visualizer.tools.DoublePoint;
 
 public class LogFunction extends Function {
 
