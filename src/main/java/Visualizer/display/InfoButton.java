@@ -53,8 +53,8 @@ public class InfoButton extends JButton {
 
         DecimalFormat formatter = new DecimalFormat("0.##"); //converts 1.0 to 1 (and similar things)
 
-        //todo switch these to string builder
         for(Function f : Display.functions) {
+
             StringBuilder tempout = new StringBuilder("y=");
             if(f instanceof LinearFunction) {
                 LinearFunction lf = (LinearFunction) f;
@@ -66,7 +66,7 @@ public class InfoButton extends JButton {
                 }
 
                 if(lf.getB() != 0d) {
-                    if(lf.getB() > 0) {
+                    if(lf.getB() > 0 && lf.getM() != 0) {
                         tempout.append("+").append(formatter.format(lf.getB()));
                     }
                     else {
@@ -371,7 +371,7 @@ public class InfoButton extends JButton {
             }
 
             if(!tempout.toString().equals("")) {
-                out.append(tempout.toString()).append("\n");
+                out.append(tempout.toString().replace("log_2.72", "ln").replace("2.72", "e")).append("\n");
             }
 
         }

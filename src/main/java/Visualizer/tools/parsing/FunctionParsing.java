@@ -35,6 +35,7 @@ public class FunctionParsing {
         //adjusting some input cases
         if(function.contains("ln(")) function = function.replace("ln", "log_2.71828"); //easiest way to handle ln
         if(function.contains("sqrt(x)")) function = function.replace("sqrt(x)", "x^0.5");
+        if(function.contains("e")) function = function.replace("e", "2.71828"); //todo check for other functions that have e in them if i add them
 
 
         //first get function type
@@ -573,7 +574,6 @@ public class FunctionParsing {
                 break;
 
             case "log":
-                //todo add support for ln everywhere
 
                 //if it starts with a digit
                 if (termTypes.startsWith("digit_")) {
@@ -772,7 +772,6 @@ public class FunctionParsing {
     public static String getFunctionType(String function) {
         String terms = getFunctionTerms(function);
 
-        //todo turn into switch case maybe
         if(isLinear(terms)){
             return "linear";
         }
@@ -1094,7 +1093,7 @@ public class FunctionParsing {
 
         loop: for(int i = 0; i < subfunction.length(); i++) {
             char charAt = subfunction.charAt(i);
-            switchCase: switch (type) {
+            switch (type) {
                 case "digit":
                     if(Character.isDigit(charAt) || charAt == '-' || /*charAt == '+' ||*/  charAt == '.'){
                         newStartIndex++;
@@ -1102,7 +1101,7 @@ public class FunctionParsing {
                     else {
                         break loop;
                     }
-                    break switchCase;
+                    break;
                 case "x": case "plus": case "multiply":
                     return subfunction.substring(1);
                 case "xpow":
@@ -1116,135 +1115,84 @@ public class FunctionParsing {
                         else newStartIndex++;
                     }
                     else break loop;
-                    break switchCase;
+                    break;
                 case "digpow.x": case "digpow.digx":
                     if(charAt == 'x' || charAt == '^' || Character.isDigit(charAt) || charAt == '-' || charAt == '.') {
                         newStartIndex++;
                         if(charAt == 'x') break loop; //since it'll be the last thing. this prevents a case of 2^x-2 being registered as one term because of the - sign
                     }
-                    break switchCase;
+                    break;
                 case "sin.x":
                     if(charAt == 's' || charAt == 'i' || charAt == 'n' || charAt == 'x' || charAt == '(' || charAt == ')') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 case "sin.dig":
                     if(charAt == 's' || charAt == 'i' || charAt == 'n' || Character.isDigit(charAt) || charAt == '-' || charAt == '.' || charAt == '(' || charAt == ')') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 case "sin.digx":
                     if(charAt == 's' || charAt == 'i' || charAt == 'n' || charAt == 'x' || charAt == '(' || charAt == ')' || Character.isDigit(charAt) || charAt == '-' || charAt == '.') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 case "cos.x":
                     if(charAt == 'c' || charAt == 'o' || charAt == 's' || charAt == 'x' || charAt == '(' || charAt == ')') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 case "cos.dig":
                     if(charAt == 'c' || charAt == 'o' || charAt == 's' || Character.isDigit(charAt) || charAt == '-' || charAt == '.' || charAt == '(' || charAt == ')') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 case "cos.digx":
                     if(charAt == 'c' || charAt == 'o' || charAt == 's' || charAt == 'x' || charAt == '(' || charAt == ')' || Character.isDigit(charAt) || charAt == '-' || charAt == '.') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 case "log.x":
                     if(charAt == 'l' || charAt == 'o' || charAt == 'g' || charAt == 'x' || charAt == '(' || charAt == ')') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
                     //todo might need to add an else statement at the end of these "else break loop;"
-                    break switchCase;
+                    break;
                 case "log,dig.x": case "log,dig.digx":
                     if(charAt == 'l' || charAt == 'o' || charAt == 'g' || charAt == '_' || charAt == 'x' || charAt == '(' || charAt == ')' || Character.isDigit(charAt) || charAt == '-' || charAt == '.') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 case "log.digx":
                     if(charAt == 'l' || charAt == 'o' || charAt == 'g' || charAt == 'x' || charAt == '(' || charAt == ')' || Character.isDigit(charAt) || charAt == '-' || charAt == '.') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 case "abs.x":
                     if(charAt == 'a' || charAt == 'b' || charAt == 's' || charAt == 'x' || charAt == '(' || charAt == ')') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 case "abs.digx":
                     if(charAt == 'a' || charAt == 'b' || charAt == 's' || charAt == 'x' || charAt == '(' || charAt == ')' || Character.isDigit(charAt) || charAt == '-' || charAt == '.') {
                         newStartIndex++;
                         if(charAt == ')') break loop;
                     }
-                    break switchCase;
+                    break;
                 default:
                     return subfunction.substring(newStartIndex);
             }
 
-            /* todo remove this comment once i'm confident enough to:/
-            if(type.equals("digit") && (Character.isDigit(charAt) || charAt == '-' || charAt == '+' ||  charAt == '.')){
-                newStartIndex++;
-            }
-            else if(type.equals("x")){
-                return subfunction.substring(1);
-            }
-            else if(type.equals("xpow") && (charAt == 'x' || charAt == '^' || Character.isDigit(charAt) || charAt == '-' || charAt == '.')) {
-                if(i > 0 && charAt == '-') {
-                    if(subfunction.charAt(i-1) == '^') {
-                        newStartIndex++;
-                    }
-                    else return subfunction.substring(newStartIndex);
-                }
-                else newStartIndex++;
-            }
-            else if(type.equals("digpow.x") && (charAt == 'x' || charAt == '^' || Character.isDigit(charAt) || charAt == '-' || charAt == '.')) {
-                newStartIndex++;
-                if(charAt == 'x') break; //since it'll be the last thing. this prevents a case of 2^x-2 being registered as one term because of the - sign
-            }
-            else if(type.equals("digpow.digx") && (charAt == 'x' || charAt == '^' || Character.isDigit(charAt) || charAt == '-' || charAt == '.')) {
-                newStartIndex++;
-                if(charAt == 'x') break;
-            }
-            else if(type.equals("sin.x") && (charAt == 's' || charAt == 'i' || charAt == 'n' || charAt == 'x' || charAt == '(' || charAt == ')')) {
-                newStartIndex++;
-                if(charAt == ')') break;
-            }
-            else if(type.equals("sin.dig") && (charAt == 's' || charAt == 'i' || charAt == 'n' || Character.isDigit(charAt) || charAt == '-' || charAt == '.' || charAt == '(' || charAt == ')')) {
-                newStartIndex++;
-                if(charAt == ')') break;
-            }
-            else if(type.equals("sin.digx") && (charAt == 's' || charAt == 'i' || charAt == 'n' || charAt == 'x' || charAt == '(' || charAt == ')' || Character.isDigit(charAt) || charAt == '-' || charAt == '.')) {
-                newStartIndex++;
-                if(charAt == ')') break;
-            }
-            else if(type.equals("cos.x") && (charAt == 'c' || charAt == 'o' || charAt == 's' || charAt == 'x' || charAt == '(' || charAt == ')')) {
-                newStartIndex++;
-                if(charAt == ')') break;
-            }
-            else if(type.equals("cos.dig") && (charAt == 'c' || charAt == 'o' || charAt == 's' || Character.isDigit(charAt) || charAt == '-' || charAt == '.' || charAt == '(' || charAt == ')')) {
-                newStartIndex++;
-                if(charAt == ')') break;
-            }
-            else if(type.equals("cos.digx") && (charAt == 'c' || charAt == 'o' || charAt == 's' || charAt == 'x' || charAt == '(' || charAt == ')' || Character.isDigit(charAt) || charAt == '-' || charAt == '.')) {
-                newStartIndex++;
-                if(charAt == ')') break;
-            }
-            else if(type.equals("plus")) return subfunction.substring(1);
-            else if(type.equals("multiply")) return subfunction.substring(1);
-            else return subfunction.substring(newStartIndex);*/
         }
 
         return subfunction.substring(newStartIndex);
@@ -1298,17 +1246,9 @@ public class FunctionParsing {
     }
 
     //this is never called on but it could probably maybe be useful at some point T.T
-    //todo if i do want to do this i need to add log
+    //todo if i do want to do this i need to add log and abs
     public static String nextTermAsString(String subfunction){
         String type = determineFirstTermType(subfunction);
-
-        //todo could probly just change the tests in the switch statement to type.startsWith instead of doing this
-        if(type.startsWith("xpow")) {
-            type = "xpow";
-        }
-        else if(type.startsWith("log")) {
-            type = "log";
-        }
 
         int endIndex = 0;
 
@@ -1327,7 +1267,7 @@ public class FunctionParsing {
                 endIndex = 1;
                 break;
             }
-            else if(type.equals("xpow") && (charAt == 'x' || charAt == '^' || Character.isDigit(charAt) || charAt == '-' || charAt == '.')){
+            else if(type.startsWith("xpow") && (charAt == 'x' || charAt == '^' || Character.isDigit(charAt) || charAt == '-' || charAt == '.')){
                 if(i > 0 && charAt == '-') {
                     if (subfunction.charAt(i - 1) == '^') {
                         endIndex++;
@@ -1337,9 +1277,6 @@ public class FunctionParsing {
             }
             else if(type.equals("plus")){
                 endIndex = 1;
-                break;
-            }
-            else if(type.equals("log")) {
                 break;
             }
             else break;
@@ -1352,9 +1289,7 @@ public class FunctionParsing {
         }
 
         return out;
-        
-        
-        
+
     }
 
     public static String getFirstDigitOfDigpow(String subfunction) {

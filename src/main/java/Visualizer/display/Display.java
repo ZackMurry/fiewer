@@ -129,7 +129,7 @@ public class Display extends Canvas implements Runnable {
         display.frame.setTitle(title);
 
         try{
-            icon = ImageIO.read(new File("resources/images/fiewericonsmall.png"));
+            icon = ImageIO.read(new File("src/main/resources/images/fiewericonsmall.png"));
             display.frame.setIconImage(icon);
         } catch (Exception e) {
             e.printStackTrace();
