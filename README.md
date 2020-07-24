@@ -30,7 +30,7 @@ You can also enter multiple functions at the same time.
 
 
 ## notation
-You can enter functions with or without a "y=" in them, but there will always be a "y=" implied. PEMDAS is always respected. Here are some examples of the notation used:  
+You can enter functions with or without a "y=" in them, but there will always be a "y=" implied. Here are some examples of the notation used:  
   y=3x  
   4x^2  
   5*4^x+3  
